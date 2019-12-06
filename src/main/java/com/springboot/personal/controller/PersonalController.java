@@ -24,25 +24,23 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/personal")
 public class PersonalController {
-	
-	
-	@Autowired
-	PersonalInterface service;
-	
-	
-	@GetMapping
-	public Mono<ResponseEntity<Flux<Personal>>> toList() {
 
-		return Mono.just(ResponseEntity.ok()
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
-				.body(service.findAll()));
 
-	}
+  @Autowired
+  PersonalInterface service;
+ 
+  @GetMapping
+  public Mono<ResponseEntity<Flux<Personal>>> toList() {
 
-	@GetMapping("/{id}")
-	public Mono<ResponseEntity<Personal>> search(@PathVariable String id) {
+    return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
+    		.body(service.findAll()));
 
-		return service.findById(id).map(p->ResponseEntity.ok()
+  }
+
+  @GetMapping("/{id}")
+  public Mono<ResponseEntity<Personal>> search(@PathVariable String id) {
+
+    return service.findById(id).map(p->ResponseEntity.ok()
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.body(p))
 				.defaultIfEmpty(ResponseEntity.notFound().build());

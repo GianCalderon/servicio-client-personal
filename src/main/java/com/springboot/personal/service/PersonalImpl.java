@@ -39,6 +39,7 @@ public class PersonalImpl implements PersonalInterface {
 
 		return repo.findById(id).flatMap(p -> {
 
+			p.setNumDoc(personal.getNumDoc());
 			p.setName(personal.getName());
 			p.setApePat(personal.getApePat());
 			p.setApeMat(personal.getApeMat());
