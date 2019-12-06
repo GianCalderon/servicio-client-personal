@@ -2,6 +2,8 @@ package com.springboot.personal.controller;
 
 import java.net.URI;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.personal.document.Personal;
+import com.springboot.personal.dto.PersonalDto;
+import com.springboot.personal.service.PersonalDtoImpl;
 import com.springboot.personal.service.PersonalInterface;
 
 import reactor.core.publisher.Flux;
@@ -24,15 +28,19 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/personal")
 public class PersonalController {
+	
+	private static final Logger log = LoggerFactory.getLogger(PersonalController.class);
 
 
   @Autowired
   PersonalInterface service;
+  @Autowired
+  PersonalDtoImpl  serviceDto;
  
   @GetMapping
   public Mono<ResponseEntity<Flux<Personal>>> toList() {
 
-    return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
+    return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
     		.body(service.findAll()));
 
   }
@@ -41,20 +49,19 @@ public class PersonalController {
   public Mono<ResponseEntity<Personal>> search(@PathVariable String id) {
 
     return service.findById(id).map(p->ResponseEntity.ok()
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.contentType(MediaType.APPLICATION_JSON)
 				.body(p))
 				.defaultIfEmpty(ResponseEntity.notFound().build());
 
 	}
 
 	@PostMapping
-	public Mono<ResponseEntity<Personal>> save(@RequestBody Personal personal) {
+	public Mono<ResponseEntity<Personal>> save(@RequestBody PersonalDto personalDto) {
 	
+		log.info(personalDto.toString());
 
-		return service.save(personal).map(p->ResponseEntity
-				.created(URI.create("/api/personal".concat(p.getId())))
-				.contentType(MediaType.APPLICATION_JSON_UTF8)
-				.body(p));
+		return serviceDto.save(personalDto).map(p->ResponseEntity.created(URI.create("/api/personal"))
+				.contentType(MediaType.APPLICATION_JSON).body(p));
 
 	}
 
@@ -63,7 +70,7 @@ public class PersonalController {
 
 		return service.update(personal, id).map(p->ResponseEntity
 						.created(URI.create("/api/personal".concat(p.getId())))
-						.contentType(MediaType.APPLICATION_JSON_UTF8)
+						.contentType(MediaType.APPLICATION_JSON)
 						.body(p))
 				.defaultIfEmpty(ResponseEntity.notFound().build());
 			

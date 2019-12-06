@@ -1,42 +1,35 @@
-package com.springboot.personal.document;
+package com.springboot.personal.dto;
 
-import java.util.List;
+public class PersonalDto {
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "cliente-personal")
-public class Personal {
-
-	@Id
-	private String id;
+	private String idCuenta;
 	private String tipoDoc;
 	private String numDoc;
 	private String name;
 	private String apePat;
 	private String apeMat;
 	private String address;
-	private List<String> idCuentas;
 
-	public Personal() {
-
+	public PersonalDto() {
 		super();
 	}
 
-	public String getId() {
-		return id;
+	public PersonalDto(String tipoDoc, String numDoc, String name, String apePat, String apeMat, String address) {
+		super();
+		this.tipoDoc = tipoDoc;
+		this.numDoc = numDoc;
+		this.name = name;
+		this.apePat = apePat;
+		this.apeMat = apeMat;
+		this.address = address;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getIdCuenta() {
+		return idCuenta;
 	}
 
-	public List<String> getIdCuentas() {
-		return idCuentas;
-	}
-
-	public void setIdCuentas(List<String> idCuentas) {
-		this.idCuentas = idCuentas;
+	public void setIdCuenta(String idCuenta) {
+		this.idCuenta = idCuenta;
 	}
 
 	public String getTipoDoc() {
@@ -86,14 +79,5 @@ public class Personal {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-
-	@Override
-	public String toString() {
-		return "Personal [id=" + id + ", idCuentas=" + idCuentas + ", tipoDoc=" + tipoDoc + ", numDoc=" + numDoc
-				+ ", name=" + name + ", apePat=" + apePat + ", apeMat=" + apeMat + ", address=" + address + "]";
-	}
-
-
-
 
 }
