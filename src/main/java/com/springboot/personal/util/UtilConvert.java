@@ -3,9 +3,12 @@ package com.springboot.personal.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
 
+@Component
 public class UtilConvert {
 	
   public Personal convertPersonal(PersonalDto personalDto) {

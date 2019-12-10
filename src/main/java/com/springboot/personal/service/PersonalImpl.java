@@ -64,4 +64,10 @@ public class PersonalImpl implements PersonalInterface {
     return save(convert.convertPersonal(personalDto));
   }
 
+  @Override
+  public Mono<Personal> nameSearch(String name) {
+
+    return repo.findByName(name);
+  }
+
 }

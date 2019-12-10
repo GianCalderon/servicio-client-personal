@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "cliente-personal")
 public class Personal {
 
+ 
   @Id
   private String id;
   private String tipoDoc;
@@ -20,6 +21,23 @@ public class Personal {
   private String apeMat;
   private String address;
   private List<String> idCuentas;
+  
+  public Personal(String tipoDoc, String numDoc, 
+      String name, String apePat, String apeMat, String address) {
+    super();
+    this.tipoDoc = tipoDoc;
+    this.numDoc = numDoc;
+    this.name = name;
+    this.apePat = apePat;
+    this.apeMat = apeMat;
+    this.address = address;
+  }
+
+  public Personal() {
+
+  }
+
+
 
 
 }
