@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
-import com.springboot.personal.service.PersonalDtoImpl;
+import com.springboot.personal.service.PersonalImpl;
 import com.springboot.personal.service.PersonalInterface;
 
 import reactor.core.publisher.Flux;
@@ -29,62 +29,56 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/api/personal")
 public class PersonalController {
 	
-	private static final Logger log = LoggerFactory.getLogger(PersonalController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(PersonalController.class);
 
 
   @Autowired
   PersonalInterface service;
-  @Autowired
-  PersonalDtoImpl  serviceDto;
- 
+
   @GetMapping
   public Mono<ResponseEntity<Flux<Personal>>> toList() {
 
-    return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
-    		.body(service.findAll()));
+    return Mono.just(ResponseEntity.ok()
+          .contentType(MediaType.APPLICATION_JSON).body(service.findAll()));
 
   }
 
   @GetMapping("/{id}")
   public Mono<ResponseEntity<Personal>> search(@PathVariable String id) {
 
-    return service.findById(id).map(p->ResponseEntity.ok()
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(p))
-				.defaultIfEmpty(ResponseEntity.notFound().build());
+    return service.findById(id).map(p -> ResponseEntity.ok()
+      .contentType(MediaType.APPLICATION_JSON).body(p))
+      .defaultIfEmpty(ResponseEntity.notFound().build());
 
-	}
+  }
 
-	@PostMapping
-	public Mono<ResponseEntity<Personal>> save(@RequestBody PersonalDto personalDto) {
-	
-		log.info(personalDto.toString());
+  @PostMapping
+  public Mono<ResponseEntity<Personal>> save(@RequestBody PersonalDto personalDto) {
 
-		return serviceDto.save(personalDto).map(p->ResponseEntity.created(URI.create("/api/personal"))
-				.contentType(MediaType.APPLICATION_JSON).body(p));
 
-	}
+    return service.saveDto(personalDto).map(p -> ResponseEntity.created(URI.create("/api/personal"))
+                  .contentType(MediaType.APPLICATION_JSON).body(p));
 
-	@PutMapping("/{id}")
-	public Mono<ResponseEntity<Personal>> update(@RequestBody Personal personal, @PathVariable String id) {
+  }
 
-		return service.update(personal, id).map(p->ResponseEntity
-						.created(URI.create("/api/personal".concat(p.getId())))
-						.contentType(MediaType.APPLICATION_JSON)
-						.body(p))
-				.defaultIfEmpty(ResponseEntity.notFound().build());
-			
-	
-	}
-	
-	@DeleteMapping("/{id}")
-	public Mono<ResponseEntity<Void>> delete(@PathVariable String id) {
-		
-		return service.findById(id).flatMap(p->{
-			return service.delete(p).then(Mono.just(new ResponseEntity<Void>(HttpStatus.ACCEPTED)));
-		}).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
+  @PutMapping("/{id}")
+  public Mono<ResponseEntity<Personal>> update(@RequestBody Personal personal,
+                    @PathVariable String id) {
 
-		
-	}
+    return service.update(personal, id)
+             .map(p -> ResponseEntity.created(URI.create("/api/personal".concat(p.getId())))
+             .contentType(MediaType.APPLICATION_JSON).body(p))
+             .defaultIfEmpty(ResponseEntity.notFound().build());
+
+  }
+
+  @DeleteMapping("/{id}")
+  public Mono<ResponseEntity<Void>> delete(@PathVariable String id) {
+
+    return service.findById(id).flatMap(p -> {
+      return service.delete(p).then(Mono.just(new ResponseEntity<Void>(HttpStatus.ACCEPTED)));
+    }).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
+
+  }
 
 }

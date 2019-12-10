@@ -12,12 +12,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebFlux;
 @Configuration
 @EnableSwagger2WebFlux
 public class SwaggerConfig {
-    @Bean
+  @Bean
     public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
+    return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
-    }
+  }
 }
