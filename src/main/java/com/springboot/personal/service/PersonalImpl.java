@@ -70,4 +70,10 @@ public class PersonalImpl implements PersonalInterface {
     return repo.findByName(name);
   }
 
+@Override
+public Mono<Personal> findByNumDoc(String numDoc) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }

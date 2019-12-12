@@ -14,7 +14,10 @@ public class UtilConvert {
   public Personal convertPersonal(PersonalDto personalDto) {
 
     Personal personal = new Personal();
+    
+    
     List<String> lista = new ArrayList<String>();
+    
     lista.add(personalDto.getIdCuenta());
 
     personal.setTipoDoc(personalDto.getTipoDoc());

@@ -21,6 +21,8 @@ public interface PersonalInterface {
   public Mono<Personal> saveDto(PersonalDto personalDto);
   
   public Mono<Personal> nameSearch(String name);
+  
+  public Mono<Personal> findByNumDoc(String numDoc);
 
 
 }

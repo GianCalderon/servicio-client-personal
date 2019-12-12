@@ -12,6 +12,9 @@ public interface PersonalRepo extends ReactiveMongoRepository<Personal,String> {
 
   @Query("{'nombre': ?0 }")
   public Mono<Personal> nameSearch(String name);
+  
+  
+  public Mono<Personal> findByNumDoc(String numDoc);
 
 
 }
