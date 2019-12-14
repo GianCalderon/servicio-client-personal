@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 public class PersonalImpl implements PersonalInterface {
 
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(PersonalImpl.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(PersonalImpl.class);
 
   @Autowired
   PersonalRepo repo;
@@ -70,10 +70,10 @@ public class PersonalImpl implements PersonalInterface {
     return repo.findByName(name);
   }
 
-@Override
-public Mono<Personal> findByNumDoc(String numDoc) {
-	// TODO Auto-generated method stub
-	return null;
-}
+  @Override
+  public Mono<Personal> findByNumDoc(String numDoc) {
+
+    return repo.findByNumDoc(numDoc);
+  }
 
 }

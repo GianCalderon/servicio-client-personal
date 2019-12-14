@@ -17,4 +17,5 @@ public interface PersonalRepo extends ReactiveMongoRepository<Personal,String> {
   public Mono<Personal> findByNumDoc(String numDoc);
 
 
+  
 }

@@ -9,6 +9,7 @@ import lombok.Data;
 
 
 @Data
+
 @Document(collection = "cliente-personal")
 public class Personal {
 
@@ -21,22 +22,26 @@ public class Personal {
   private String apePat;
   private String apeMat;
   private String address;
-  private List<String> idCuentas;
+  private List<Cuenta> idCuentas;
   
-  public Personal(String tipoDoc, String numDoc, 
-      String name, String apePat, String apeMat, String address) {
-    super();
-    this.tipoDoc = tipoDoc;
-    this.numDoc = numDoc;
-    this.name = name;
-    this.apePat = apePat;
-    this.apeMat = apeMat;
-    this.address = address;
-  }
+
 
   public Personal() {
 
   }
+
+
+
+public Personal(String tipoDoc, String numDoc, String name, String apePat, String apeMat, String address) {
+	super();
+	this.tipoDoc = tipoDoc;
+	this.numDoc = numDoc;
+	this.name = name;
+	this.apePat = apePat;
+	this.apeMat = apeMat;
+	this.address = address;
+
+}
 
 
 

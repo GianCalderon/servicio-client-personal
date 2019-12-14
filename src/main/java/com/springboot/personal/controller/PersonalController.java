@@ -80,5 +80,14 @@ public class PersonalController {
     }).defaultIfEmpty(new ResponseEntity<Void>(HttpStatus.NOT_FOUND));
 
   }
+  
+  @GetMapping("/{id}")
+  public Mono<ResponseEntity<Personal>> searchDni(@PathVariable String dni) {
+
+    return service.findByNumDoc(dni).map(p -> ResponseEntity.ok()
+      .contentType(MediaType.APPLICATION_JSON).body(p))
+      .defaultIfEmpty(ResponseEntity.notFound().build());
+
+  }
 
 }
