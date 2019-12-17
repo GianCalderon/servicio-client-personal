@@ -1,11 +1,13 @@
 package com.springboot.personal.util;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.springboot.personal.document.Cuenta;
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
 
@@ -14,22 +16,22 @@ public class UtilConvert {
 
   public Personal convertPersonal(PersonalDto personalDto) {
 
-    Cuenta cuenta = new Cuenta();
-    cuenta.setNumAccount(personalDto.getIdCuenta());
-    cuenta.setDetailAccount(personalDto.getNameAccount());
-
+    Map<String,String> cuentaMap = new HashMap<String,String>();
     Personal personal = new Personal();
 
-    List<Cuenta> lista = new ArrayList<Cuenta>();
-    
-    lista.add(cuenta);
+    cuentaMap.put(personalDto.getNameAccount(), personalDto.getIdCuenta());
+    List<Map<String,String>> lista = new ArrayList<Map<String,String>>();
+    lista.add(cuentaMap);
 
+  
     personal.setTipoDoc(personalDto.getTipoDoc());
     personal.setNumDoc(personalDto.getNumDoc());
     personal.setName(personalDto.getName()); 
     personal.setApePat(personalDto.getApePat());
     personal.setApeMat(personalDto.getApeMat());
     personal.setAddress(personalDto.getAddress());
+    personal.setCreateDate(new Date());
+    personal.setUpdateDate(new Date());
     personal.setIdCuentas(lista);
 
     return personal;

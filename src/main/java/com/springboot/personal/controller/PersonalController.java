@@ -55,8 +55,15 @@ public class PersonalController {
   @PostMapping
   public Mono<ResponseEntity<Personal>> save(@RequestBody PersonalDto personalDto) {
 
-
     return service.saveDto(personalDto).map(p -> ResponseEntity.created(URI.create("/api/personal"))
+                  .contentType(MediaType.APPLICATION_JSON).body(p));
+
+  }
+  
+  @PostMapping("/save")
+  public Mono<ResponseEntity<Personal>> save(@RequestBody Personal personal) {
+
+    return service.save(personal).map(p -> ResponseEntity.created(URI.create("/api/personal"))
                   .contentType(MediaType.APPLICATION_JSON).body(p));
 
   }
@@ -81,13 +88,13 @@ public class PersonalController {
 
   }
   
-  @GetMapping("/{id}")
-  public Mono<ResponseEntity<Personal>> searchDni(@PathVariable String dni) {
-
-    return service.findByNumDoc(dni).map(p -> ResponseEntity.ok()
-      .contentType(MediaType.APPLICATION_JSON).body(p))
-      .defaultIfEmpty(ResponseEntity.notFound().build());
-
-  }
+//  @GetMapping("/{id}")
+//  public Mono<ResponseEntity<Personal>> searchDni(@PathVariable String dni) {
+//
+//    return service.findByNumDoc(dni).map(p -> ResponseEntity.ok()
+//      .contentType(MediaType.APPLICATION_JSON).body(p))
+//      .defaultIfEmpty(ResponseEntity.notFound().build());
+//
+//  }
 
 }

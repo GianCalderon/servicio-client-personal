@@ -1,5 +1,9 @@
 package com.springboot.personal.service;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +41,10 @@ public class PersonalImpl implements PersonalInterface {
 
   public Mono<Personal> save(Personal personal) {
 
-    return repo.save(personal);
+	  personal.setCreateDate(new Date());
+	  personal.setUpdateDate(new Date());
+	  personal.setIdCuentas(new ArrayList<Map<String,String>>());
+      return repo.save(personal);
   }
 
   public Mono<Personal> update(Personal personal,String id) {
@@ -49,6 +56,8 @@ public class PersonalImpl implements PersonalInterface {
       p.setApePat(personal.getApePat());
       p.setApeMat(personal.getApeMat());
       p.setAddress(personal.getAddress());
+      p.setUpdateDate(new Date());
+      p.setIdCuentas(personal.getIdCuentas());
       
       return repo.save(p);
 
