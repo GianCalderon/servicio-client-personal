@@ -1,9 +1,12 @@
 package com.springboot.personal.dto;
 
+import java.util.List;
+import java.util.Map;
+
 import lombok.Data;
 
 @Data
-public class PersonalDto {
+public class PersonalDtoUpdate {
 
   private String idAccount;
   
@@ -21,8 +24,10 @@ public class PersonalDto {
 
   private String address;
   
+	private List<Map<String,String>> idCuentas;
   
-  public PersonalDto(String nameAccount, String tipoDoc, String numDoc, String name, String apePat,
+  
+  public PersonalDtoUpdate(String nameAccount, String tipoDoc, String numDoc, String name, String apePat,
 		String apeMat, String address) {
 	super();
 	this.nameAccount = nameAccount;

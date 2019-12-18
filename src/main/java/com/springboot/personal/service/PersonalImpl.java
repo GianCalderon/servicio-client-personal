@@ -1,8 +1,6 @@
 package com.springboot.personal.service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
+import com.springboot.personal.dto.PersonalDtoUpdate;
 import com.springboot.personal.repo.PersonalRepo;
 import com.springboot.personal.util.UtilConvert;
 
@@ -43,7 +42,7 @@ public class PersonalImpl implements PersonalInterface {
 
 	  personal.setCreateDate(new Date());
 	  personal.setUpdateDate(new Date());
-	  personal.setIdCuentas(new ArrayList<Map<String,String>>());
+	
       return repo.save(personal);
   }
 

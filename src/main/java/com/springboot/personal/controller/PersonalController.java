@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
-import com.springboot.personal.service.PersonalImpl;
+import com.springboot.personal.dto.PersonalDtoUpdate;
 import com.springboot.personal.service.PersonalInterface;
 
 import reactor.core.publisher.Flux;
@@ -55,6 +55,9 @@ public class PersonalController {
   @PostMapping
   public Mono<ResponseEntity<Personal>> save(@RequestBody PersonalDto personalDto) {
 
+	
+    LOGGER.info("OBJETO RECIBIBIDO ---> " + personalDto.toString());
+    
     return service.saveDto(personalDto).map(p -> ResponseEntity.created(URI.create("/api/personal"))
                   .contentType(MediaType.APPLICATION_JSON).body(p));
 
@@ -72,6 +75,8 @@ public class PersonalController {
   public Mono<ResponseEntity<Personal>> update(@RequestBody Personal personal,
                     @PathVariable String id) {
 
+	  
+	  LOGGER.info("OBJETO RECIBIDO A ACTUALIZAR ---> " + personal.toString());
     return service.update(personal, id)
              .map(p -> ResponseEntity.created(URI.create("/api/personal".concat(p.getId())))
              .contentType(MediaType.APPLICATION_JSON).body(p))
