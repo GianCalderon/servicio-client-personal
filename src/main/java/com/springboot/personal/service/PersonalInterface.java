@@ -2,7 +2,6 @@ package com.springboot.personal.service;
 
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
-import com.springboot.personal.dto.PersonalDtoUpdate;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -24,6 +23,8 @@ public interface PersonalInterface {
   public Mono<Personal> nameSearch(String name);
   
   public Mono<Personal> findByNumDoc(String numDoc);
+  
+  public Mono<Personal> report(String id);
 
 
 }

@@ -83,5 +83,19 @@ public class PersonalImpl implements PersonalInterface {
 
     return repo.findByNumDoc(numDoc);
   }
+  
+  public Mono<Personal> report(String numDoc) {
+
+//	    return repo.findByNumDoc(numDoc).flatMap(p->{
+//	    	
+//	    	p.getIdCuentas().forEach(p->p.get(key));
+//	    	
+//	    	
+//	    })
+	  
+	  return null;
+	    
+	  }
+
 
 }

@@ -101,5 +101,15 @@ public class PersonalController {
 //      .defaultIfEmpty(ResponseEntity.notFound().build());
 //
 //  }
+  
+//  @GetMapping("/{numDoc}")
+//  public Mono<ResponseEntity<Personal>> report(@PathVariable String numDoc) {
+//
+//    return service.report(numDoc).map(p -> ResponseEntity.ok()
+//      .contentType(MediaType.APPLICATION_JSON).body(p))
+//      .defaultIfEmpty(ResponseEntity.notFound().build());
+//
+//  }
+  
 
 }
