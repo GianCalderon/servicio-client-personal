@@ -14,7 +14,7 @@ public interface PersonalInterface {
   
   public Mono<Personal> save(Personal personal);
   
-  public Mono<Personal> update(Personal personal,String id);
+  public Mono<Personal> update(PersonalDto personalDto,String id);
   
   public Mono<Void> delete(Personal personal);
   
@@ -23,8 +23,7 @@ public interface PersonalInterface {
   public Mono<Personal> nameSearch(String name);
   
   public Mono<Personal> findByNumDoc(String numDoc);
-  
-  public Mono<Personal> report(String id);
+
 
 
 }

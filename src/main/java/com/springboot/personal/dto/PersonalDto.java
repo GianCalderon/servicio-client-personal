@@ -1,45 +1,22 @@
 package com.springboot.personal.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 public class PersonalDto {
 
-  private String idAccount;
-  
-  private String nameAccount;
-  
-  private String tipoDoc;
+	private String idAccount;
+	private String nameAccount;
+	
 
-  private String numDoc;
+	private String tipoDoc;
+	private String numDoc;
+	private String name;
+	private String apePat;
+	private String apeMat;
+	private String address;
 
-  private String name;
-
-  private String apePat;
-
-  private String apeMat;
-
-  private String address;
-  
-  
-  public PersonalDto(String nameAccount, String tipoDoc, String numDoc, String name, String apePat,
-		String apeMat, String address) {
-	super();
-	this.nameAccount = nameAccount;
-	this.tipoDoc = tipoDoc;
-	this.numDoc = numDoc;
-	this.name = name;
-	this.apePat = apePat;
-	this.apeMat = apeMat;
-	this.address = address;
-}
-
-
-
-  
-
-
- 
-
-
+	
 }

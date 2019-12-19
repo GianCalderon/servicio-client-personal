@@ -6,11 +6,13 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.springboot.personal.document.Cuenta;
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
+import com.springboot.personal.repo.PersonalRepo;
 
 
 @Component
@@ -18,7 +20,7 @@ public class UtilConvert {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UtilConvert.class);
 	
-	
+
   public Personal convertPersonal(PersonalDto personalDto) {
 	
     LOGGER.info("convertir ---> " + personalDto.toString());
@@ -28,7 +30,7 @@ public class UtilConvert {
     cuenta.setNameAccount(personalDto.getNameAccount());
     
     Personal personal = new Personal();
-  
+
     List<Cuenta> listCuenta = new ArrayList<Cuenta>();
     listCuenta.add(cuenta);
     

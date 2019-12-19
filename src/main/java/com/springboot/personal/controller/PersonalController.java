@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
-import com.springboot.personal.dto.PersonalDtoUpdate;
 import com.springboot.personal.service.PersonalInterface;
 
 import reactor.core.publisher.Flux;
@@ -51,19 +50,8 @@ public class PersonalController {
       .defaultIfEmpty(ResponseEntity.notFound().build());
 
   }
-
-  @PostMapping
-  public Mono<ResponseEntity<Personal>> save(@RequestBody PersonalDto personalDto) {
-
-	
-    LOGGER.info("OBJETO RECIBIBIDO ---> " + personalDto.toString());
-    
-    return service.saveDto(personalDto).map(p -> ResponseEntity.created(URI.create("/api/personal"))
-                  .contentType(MediaType.APPLICATION_JSON).body(p));
-
-  }
   
-  @PostMapping("/save")
+  @PostMapping
   public Mono<ResponseEntity<Personal>> save(@RequestBody Personal personal) {
 
     return service.save(personal).map(p -> ResponseEntity.created(URI.create("/api/personal"))
@@ -72,16 +60,15 @@ public class PersonalController {
   }
 
   @PutMapping("/{id}")
-  public Mono<ResponseEntity<Personal>> update(@RequestBody Personal personal,
+  public Mono<ResponseEntity<Personal>> update(@RequestBody PersonalDto personalDto,
                     @PathVariable String id) {
 
-	  
-	  LOGGER.info("OBJETO RECIBIDO A ACTUALIZAR ---> " + personal.toString());
-    return service.update(personal, id)
+    LOGGER.info("OBJETO RECIBIDO A ACTUALIZAR ---> " + personalDto.toString());
+	
+    return service.update(personalDto, id)
              .map(p -> ResponseEntity.created(URI.create("/api/personal".concat(p.getId())))
              .contentType(MediaType.APPLICATION_JSON).body(p))
              .defaultIfEmpty(ResponseEntity.notFound().build());
-
   }
 
   @DeleteMapping("/{id}")
@@ -93,23 +80,28 @@ public class PersonalController {
 
   }
   
-//  @GetMapping("/{id}")
-//  public Mono<ResponseEntity<Personal>> searchDni(@PathVariable String dni) {
-//
-//    return service.findByNumDoc(dni).map(p -> ResponseEntity.ok()
-//      .contentType(MediaType.APPLICATION_JSON).body(p))
-//      .defaultIfEmpty(ResponseEntity.notFound().build());
-//
-//  }
   
-//  @GetMapping("/{numDoc}")
-//  public Mono<ResponseEntity<Personal>> report(@PathVariable String numDoc) {
-//
-//    return service.report(numDoc).map(p -> ResponseEntity.ok()
-//      .contentType(MediaType.APPLICATION_JSON).body(p))
-//      .defaultIfEmpty(ResponseEntity.notFound().build());
-//
-//  }
+  @PostMapping("/guardar")
+  public Mono<ResponseEntity<Personal>> save(@RequestBody PersonalDto personalDto) {
+
+    LOGGER.info("PersonalDto RECIBIBIDO ---> " + personalDto.toString());
+    
+    return service.saveDto(personalDto).map(p -> ResponseEntity.created(URI.create("/api/personal"))
+                  .contentType(MediaType.APPLICATION_JSON).body(p));
+
+  }
   
+  @GetMapping("/doc/{dni}")
+  public Mono<ResponseEntity<Personal>> searchDni(@PathVariable String dni) {
+
+    return service.findByNumDoc(dni).map(p -> ResponseEntity.ok()
+      .contentType(MediaType.APPLICATION_JSON).body(p))
+      .defaultIfEmpty(ResponseEntity.notFound().build());
+
+  }
+  
+
+  
+
 
 }

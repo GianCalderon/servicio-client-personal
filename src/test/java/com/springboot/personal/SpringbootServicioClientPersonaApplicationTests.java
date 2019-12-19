@@ -57,25 +57,25 @@ class SpringbootServicioClientPersonaApplicationTests {
   }
   
 
-  @Test
-  public void saveTest() {
-
-
-    PersonalDto personalDto = new PersonalDto("1deaes79067db969b8fffc13","dni","8966675",
-                                        "Alberto","Calderon","Humareda","Rosale 234");
-
-    client.post()
-    .uri("api/personal")
-    .contentType(MediaType.APPLICATION_JSON)
-    .accept(MediaType.APPLICATION_JSON)
-    .body(Mono.just(personalDto),PersonalDto.class)
-    .exchange()
-    .expectStatus().isCreated()
-    .expectHeader().contentType(MediaType.APPLICATION_JSON)
-      .expectBody()
-      .jsonPath("$.id").isNotEmpty()
-      .jsonPath("$.name").isEqualTo("Alberto");
-  }
+//  @Test
+//  public void saveTest() {
+//
+//
+//    PersonalDto personalDto = new PersonalDto("1deaes79067db969b8fffc13","dni","8966675",
+//                                        "Alberto","Calderon","Humareda","Rosale 234");
+//
+//    client.post()
+//    .uri("api/personal")
+//    .contentType(MediaType.APPLICATION_JSON)
+//    .accept(MediaType.APPLICATION_JSON)
+//    .body(Mono.just(personalDto),PersonalDto.class)
+//    .exchange()
+//    .expectStatus().isCreated()
+//    .expectHeader().contentType(MediaType.APPLICATION_JSON)
+//      .expectBody()
+//      .jsonPath("$.id").isNotEmpty()
+//      .jsonPath("$.name").isEqualTo("Alberto");
+//  }
   
   @Test
   public void updateTest() {

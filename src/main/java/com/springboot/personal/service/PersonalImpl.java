@@ -1,15 +1,16 @@
 package com.springboot.personal.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.springboot.personal.document.Cuenta;
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
-import com.springboot.personal.dto.PersonalDtoUpdate;
 import com.springboot.personal.repo.PersonalRepo;
 import com.springboot.personal.util.UtilConvert;
 
@@ -46,20 +47,30 @@ public class PersonalImpl implements PersonalInterface {
       return repo.save(personal);
   }
 
-  public Mono<Personal> update(Personal personal,String id) {
+  public Mono<Personal> update(PersonalDto personalDto,String id) {
 
-    return repo.findById(id).flatMap(p -> {
-
-      p.setNumDoc(personal.getNumDoc());
-      p.setName(personal.getName());
-      p.setApePat(personal.getApePat());
-      p.setApeMat(personal.getApeMat());
-      p.setAddress(personal.getAddress());
-      p.setUpdateDate(new Date());
-      p.setIdCuentas(personal.getIdCuentas());
+    return repo.findByNumDoc(id).flatMap(persona -> {
+  	
+      List<Cuenta> list = persona.getIdCuentas();
       
-      return repo.save(p);
-
+      Cuenta cuenta = new Cuenta();
+      
+      cuenta.setIdAccount(personalDto.getIdAccount());
+      cuenta.setNameAccount(personalDto.getNameAccount());
+      
+      list.add(cuenta);
+      
+      persona.setTipoDoc(personalDto.getTipoDoc());
+      persona.setNumDoc(personalDto.getNumDoc());
+      persona.setName(personalDto.getName());
+      persona.setApePat(personalDto.getApePat());
+      persona.setApeMat(personalDto.getApeMat());
+      persona.setAddress(personalDto.getAddress());
+      persona.setUpdateDate(new Date());
+      persona.setIdCuentas(list);
+      
+      return repo.save(persona);
+  
     });
   }
 
@@ -84,18 +95,6 @@ public class PersonalImpl implements PersonalInterface {
     return repo.findByNumDoc(numDoc);
   }
   
-  public Mono<Personal> report(String numDoc) {
-
-//	    return repo.findByNumDoc(numDoc).flatMap(p->{
-//	    	
-//	    	p.getIdCuentas().forEach(p->p.get(key));
-//	    	
-//	    	
-//	    })
-	  
-	  return null;
-	    
-	  }
 
 
 }
