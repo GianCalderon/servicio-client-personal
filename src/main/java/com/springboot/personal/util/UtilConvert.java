@@ -26,8 +26,10 @@ public class UtilConvert {
     LOGGER.info("convertir ---> " + personalDto.toString());
 
     Cuenta cuenta = new Cuenta();
+    cuenta.setIdCuenta(personalDto.getIdCuenta());
     cuenta.setIdAccount(personalDto.getIdAccount());
     cuenta.setNameAccount(personalDto.getNameAccount());
+    
     
     Personal personal = new Personal();
 

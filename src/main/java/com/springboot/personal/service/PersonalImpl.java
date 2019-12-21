@@ -57,9 +57,11 @@ public class PersonalImpl implements PersonalInterface {
       
       cuenta.setIdAccount(personalDto.getIdAccount());
       cuenta.setNameAccount(personalDto.getNameAccount());
+      cuenta.setIdCuenta(personalDto.getIdCuenta());
       
       list.add(cuenta);
       
+     
       persona.setTipoDoc(personalDto.getTipoDoc());
       persona.setNumDoc(personalDto.getNumDoc());
       persona.setName(personalDto.getName());
@@ -93,6 +95,12 @@ public class PersonalImpl implements PersonalInterface {
   public Mono<Personal> findByNumDoc(String numDoc) {
 
     return repo.findByNumDoc(numDoc);
+  }
+  
+  @Override
+  public Mono<Personal> findAllAccount(String nameAccount) {
+
+    return repo.searchAccount(nameAccount);
   }
   
 

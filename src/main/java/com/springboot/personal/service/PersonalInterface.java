@@ -23,6 +23,8 @@ public interface PersonalInterface {
   public Mono<Personal> nameSearch(String name);
   
   public Mono<Personal> findByNumDoc(String numDoc);
+  
+  public Mono<Personal> findAllAccount(String nameAccount);
 
 
 
