@@ -3,11 +3,11 @@ package com.springboot.personal.document;
 import lombok.Data;
 
 @Data
-public class Cuenta {
+public class Account {
 	
 
-  private String idCuenta;
   private String idAccount;
+  private String numberAccount;
   private String nameAccount;
   
 

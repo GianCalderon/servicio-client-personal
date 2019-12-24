@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.personal.document.Cuenta;
+import com.springboot.personal.document.Account;
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
 import com.springboot.personal.service.PersonalInterface;
@@ -101,22 +101,13 @@ public class PersonalController {
       .defaultIfEmpty(ResponseEntity.notFound().build());
 
   }
-  
-  @GetMapping("/doc/cuenta/{nameAccount}")
-  public Mono<ResponseEntity<Personal>> searchAccount(@PathVariable String nameAccount) {
 
-    return service.findAllAccount(nameAccount).map(p -> ResponseEntity.ok()
-      .contentType(MediaType.APPLICATION_JSON).body(p))
-      .defaultIfEmpty(ResponseEntity.notFound().build());
-
-  }
-  
   @GetMapping("/valid/{dni}")
-  public Flux<Cuenta> valid(@PathVariable String dni) {
+  public Flux<Account> valid(@PathVariable String dni) {
    
-    return service.findByNumDoc(dni).flatMapMany(p ->{ 
+    return service.findByNumDoc(dni).flatMapMany(cuentas ->{ 
 
-    	return Flux.fromIterable(p.getIdCuentas());
+    	return Flux.fromIterable(cuentas.getListAccount());
     		
     });	
     	

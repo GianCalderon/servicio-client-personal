@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.springboot.personal.document.Cuenta;
+import com.springboot.personal.document.Account;
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
 import com.springboot.personal.repo.PersonalRepo;
@@ -25,16 +25,16 @@ public class UtilConvert {
 	
     LOGGER.info("convertir ---> " + personalDto.toString());
 
-    Cuenta cuenta = new Cuenta();
-    cuenta.setIdCuenta(personalDto.getIdCuenta());
-    cuenta.setIdAccount(personalDto.getIdAccount());
-    cuenta.setNameAccount(personalDto.getNameAccount());
+    Account account = new Account();
+    account.setIdAccount(personalDto.getIdAccount());
+    account.setNumberAccount(personalDto.getNumberAccount());
+    account.setNameAccount(personalDto.getNameAccount());
     
     
     Personal personal = new Personal();
 
-    List<Cuenta> listCuenta = new ArrayList<Cuenta>();
-    listCuenta.add(cuenta);
+    List<Account> listCuenta = new ArrayList<Account>();
+    listCuenta.add(account);
     
 
     personal.setTipoDoc(personalDto.getTipoDoc());
@@ -45,9 +45,11 @@ public class UtilConvert {
     personal.setAddress(personalDto.getAddress());
     personal.setCreateDate(new Date());
     personal.setUpdateDate(new Date());
-    personal.setIdCuentas(listCuenta);
+    personal.setListAccount(listCuenta);
 
     LOGGER.info("TRANSFORMADO ---> "+personal.toString());
+    
+    LOGGER.info("LISTA_CUENTAS ---> "+listCuenta.toString());
    
     return personal;
   }

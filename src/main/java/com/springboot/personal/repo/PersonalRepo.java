@@ -11,10 +11,10 @@ public interface PersonalRepo extends ReactiveMongoRepository<Personal,String> {
 
   public Mono<Personal> findByName(String name);
 
-  @Query("{'numDoc': ?0 }")
-  public Mono<Personal> findByNumDoc(String numDoc);
-
+//  @Query("{'numDoc': ?0 }")
 //  public Mono<Personal> findByNumDoc(String numDoc);
+
+  public Mono<Personal> findByNumDoc(String numDoc);
   
   @Query("{'idCuentas.idCuenta': ?0 }")
   public Mono<Personal>searchAccount(String nameAccount);

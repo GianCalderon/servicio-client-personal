@@ -8,8 +8,8 @@ import lombok.Data;
 public class PersonalDto {
 
 	private String idAccount;
+	private String numberAccount;
 	private String nameAccount;
-	private String idCuenta;
 	
 
 	private String tipoDoc;

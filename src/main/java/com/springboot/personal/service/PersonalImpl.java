@@ -1,5 +1,6 @@
 package com.springboot.personal.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.personal.document.Cuenta;
+import com.springboot.personal.document.Account;
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
 import com.springboot.personal.repo.PersonalRepo;
@@ -43,6 +44,7 @@ public class PersonalImpl implements PersonalInterface {
 
 	  personal.setCreateDate(new Date());
 	  personal.setUpdateDate(new Date());
+	  personal.setListAccount(new ArrayList<Account>());
 	
       return repo.save(personal);
   }
@@ -51,15 +53,16 @@ public class PersonalImpl implements PersonalInterface {
 
     return repo.findByNumDoc(id).flatMap(persona -> {
   	
-      List<Cuenta> list = persona.getIdCuentas();
+      List<Account> list = persona.getListAccount();
       
-      Cuenta cuenta = new Cuenta();
+      Account account = new Account();
       
-      cuenta.setIdAccount(personalDto.getIdAccount());
-      cuenta.setNameAccount(personalDto.getNameAccount());
-      cuenta.setIdCuenta(personalDto.getIdCuenta());
+      account.setIdAccount(personalDto.getIdAccount());
+      account.setNumberAccount(personalDto.getNumberAccount());
+      account.setNameAccount(personalDto.getNameAccount());
+
       
-      list.add(cuenta);
+      list.add(account);
       
      
       persona.setTipoDoc(personalDto.getTipoDoc());
@@ -69,7 +72,7 @@ public class PersonalImpl implements PersonalInterface {
       persona.setApeMat(personalDto.getApeMat());
       persona.setAddress(personalDto.getAddress());
       persona.setUpdateDate(new Date());
-      persona.setIdCuentas(list);
+      persona.setListAccount(list);
       
       return repo.save(persona);
   
@@ -82,7 +85,7 @@ public class PersonalImpl implements PersonalInterface {
 
   public Mono<Personal> saveDto(PersonalDto personalDto) {
 
-    return save(convert.convertPersonal(personalDto));
+    return repo.save(convert.convertPersonal(personalDto));
   }
 
   @Override
