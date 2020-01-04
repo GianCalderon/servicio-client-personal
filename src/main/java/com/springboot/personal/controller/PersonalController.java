@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.personal.document.Account;
 import com.springboot.personal.document.Personal;
+import com.springboot.personal.dto.detailAccount;
 import com.springboot.personal.dto.PersonalDto;
 import com.springboot.personal.service.PersonalInterface;
 
+import io.swagger.annotations.ApiOperation;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -36,6 +38,7 @@ public class PersonalController {
   @Autowired
   PersonalInterface service;
 
+  
   @GetMapping
   public Mono<ResponseEntity<Flux<Personal>>> toList() {
 
@@ -73,6 +76,7 @@ public class PersonalController {
              .defaultIfEmpty(ResponseEntity.notFound().build());
   }
 
+  @ApiOperation(value = "Delete an user", notes = "Delete a user by Id")
   @DeleteMapping("/{id}")
   public Mono<ResponseEntity<Void>> delete(@PathVariable String id) {
 
@@ -112,6 +116,17 @@ public class PersonalController {
     });	
     	
   }
+  
+//  @GetMapping("/detail/{dni}")
+//  public List<detailAccount> detailAccount(@PathVariable String dni) {
+//   
+//    return service.detailAccount(dni).flatMapMany(cuentas ->{ 
+//
+//    	return Flux.fromIterable(cuentas.getListAccount());
+//    		
+//    });	
+//    	
+//  }
     
     
 

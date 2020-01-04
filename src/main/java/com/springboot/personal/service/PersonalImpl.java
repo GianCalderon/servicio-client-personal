@@ -106,6 +106,11 @@ public class PersonalImpl implements PersonalInterface {
     return repo.searchAccount(nameAccount);
   }
   
+//  public Flux<detailAccount> detailAccount(String dni){
+//	  
+//	  
+//  }
+  
 
 
 }
