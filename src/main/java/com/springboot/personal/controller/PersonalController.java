@@ -1,7 +1,6 @@
 package com.springboot.personal.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.springboot.personal.document.Account;
 import com.springboot.personal.document.Personal;
-import com.springboot.personal.dto.detailAccount;
 import com.springboot.personal.dto.PersonalDto;
 import com.springboot.personal.service.PersonalInterface;
 
@@ -58,6 +55,8 @@ public class PersonalController {
   
   @PostMapping
   public Mono<ResponseEntity<Personal>> save(@RequestBody Personal personal) {
+	  
+	  LOGGER.info(personal.toString());
 
     return service.save(personal).map(p -> ResponseEntity.created(URI.create("/api/personal"))
                   .contentType(MediaType.APPLICATION_JSON).body(p));
@@ -65,12 +64,12 @@ public class PersonalController {
   }
 
   @PutMapping("/{id}")
-  public Mono<ResponseEntity<Personal>> update(@RequestBody PersonalDto personalDto,
+  public Mono<ResponseEntity<Personal>> update(@RequestBody Personal personal,
                     @PathVariable String id) {
 
-    LOGGER.info("OBJETO RECIBIDO A ACTUALIZAR ---> " + personalDto.toString());
+    LOGGER.info("OBJETO RECIBIDO A ACTUALIZAR ---> " + personal.toString());
 	
-    return service.update(personalDto, id)
+    return service.update(personal, id)
              .map(p -> ResponseEntity.created(URI.create("/api/personal".concat(p.getId())))
              .contentType(MediaType.APPLICATION_JSON).body(p))
              .defaultIfEmpty(ResponseEntity.notFound().build());
@@ -86,47 +85,16 @@ public class PersonalController {
 
   }
   
-  
-  @PostMapping("/guardar")
-  public Mono<ResponseEntity<Personal>> save(@RequestBody PersonalDto personalDto) {
-
-    LOGGER.info("PersonalDto RECIBIBIDO ---> " + personalDto.toString());
-    
-    return service.saveDto(personalDto).map(p -> ResponseEntity.created(URI.create("/api/personal"))
-                  .contentType(MediaType.APPLICATION_JSON).body(p));
-
-  }
-  
-  @GetMapping("/doc/{dni}")
+  @GetMapping("/numDoc/{dni}")
   public Mono<ResponseEntity<Personal>> searchDni(@PathVariable String dni) {
 
-    return service.findByNumDoc(dni).map(p -> ResponseEntity.ok()
+    return service.findByDni(dni).map(p -> ResponseEntity.ok()
       .contentType(MediaType.APPLICATION_JSON).body(p))
       .defaultIfEmpty(ResponseEntity.notFound().build());
 
   }
 
-  @GetMapping("/valid/{dni}")
-  public Flux<Account> valid(@PathVariable String dni) {
-   
-    return service.findByNumDoc(dni).flatMapMany(cuentas ->{ 
 
-    	return Flux.fromIterable(cuentas.getListAccount());
-    		
-    });	
-    	
-  }
-  
-//  @GetMapping("/detail/{dni}")
-//  public List<detailAccount> detailAccount(@PathVariable String dni) {
-//   
-//    return service.detailAccount(dni).flatMapMany(cuentas ->{ 
-//
-//    	return Flux.fromIterable(cuentas.getListAccount());
-//    		
-//    });	
-//    	
-//  }
     
     
 

@@ -1,15 +1,12 @@
 package com.springboot.personal.service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.springboot.personal.document.Account;
 import com.springboot.personal.document.Personal;
 import com.springboot.personal.dto.PersonalDto;
 import com.springboot.personal.repo.PersonalRepo;
@@ -42,50 +39,31 @@ public class PersonalImpl implements PersonalInterface {
 
   public Mono<Personal> save(Personal personal) {
 
-	  personal.setCreateDate(new Date());
-	  personal.setUpdateDate(new Date());
-	  personal.setListAccount(new ArrayList<Account>());
-	
-      return repo.save(personal);
+    personal.setCreateDate(new Date());
+    personal.setUpdateDate(new Date());
+    return repo.save(personal);
   }
 
-  public Mono<Personal> update(PersonalDto personalDto,String id) {
+  public Mono<Personal> update(Personal personal,String id) {
 
-    return repo.findByNumDoc(id).flatMap(persona -> {
-  	
-      List<Account> list = persona.getListAccount();
-      
-      Account account = new Account();
-      
-      account.setIdAccount(personalDto.getIdAccount());
-      account.setNumberAccount(personalDto.getNumberAccount());
-      account.setNameAccount(personalDto.getNameAccount());
+    return repo.findById(id).flatMap(persona -> {
 
-      
-      list.add(account);
-      
-     
-      persona.setTipoDoc(personalDto.getTipoDoc());
-      persona.setNumDoc(personalDto.getNumDoc());
-      persona.setName(personalDto.getName());
-      persona.setApePat(personalDto.getApePat());
-      persona.setApeMat(personalDto.getApeMat());
-      persona.setAddress(personalDto.getAddress());
+      persona.setTipoDoc(personal.getTipoDoc());
+      persona.setName(personal.getName());
+      persona.setApePat(personal.getApePat());
+      persona.setApeMat(personal.getApeMat());
+      persona.setAddress(personal.getAddress());
       persona.setUpdateDate(new Date());
-      persona.setListAccount(list);
-      
+
       return repo.save(persona);
   
     });
+
+
   }
 
   public Mono<Void> delete(Personal personal) {
     return repo.delete(personal);
-  }
-
-  public Mono<Personal> saveDto(PersonalDto personalDto) {
-
-    return repo.save(convert.convertPersonal(personalDto));
   }
 
   @Override
@@ -95,21 +73,14 @@ public class PersonalImpl implements PersonalInterface {
   }
 
   @Override
-  public Mono<Personal> findByNumDoc(String numDoc) {
-
+  public Mono<Personal> findByDni(String numDoc) {
+	
     return repo.findByNumDoc(numDoc);
   }
   
-  @Override
-  public Mono<Personal> findAllAccount(String nameAccount) {
 
-    return repo.searchAccount(nameAccount);
-  }
   
-//  public Flux<detailAccount> detailAccount(String dni){
-//	  
-//	  
-//  }
+
   
 
 

@@ -46,9 +46,6 @@ public class Personal {
   
   @JsonFormat(pattern = "yyyy-MM-dd")
   private Date updateDate;
-  
-  private List<Account> listAccount;
- 
 
 
   public Personal() {

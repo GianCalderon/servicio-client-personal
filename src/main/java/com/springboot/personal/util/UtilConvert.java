@@ -45,7 +45,6 @@ public class UtilConvert {
     personal.setAddress(personalDto.getAddress());
     personal.setCreateDate(new Date());
     personal.setUpdateDate(new Date());
-    personal.setListAccount(listCuenta);
 
     LOGGER.info("TRANSFORMADO ---> "+personal.toString());
     
